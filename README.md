@@ -5,6 +5,19 @@ This project covers basic functionality of `polars` library. It consists of 2 CS
 methods and serve for the purpose of learning writing such pipelines in Rust. 
 
 ## Examples
+### 0. Read dataset
+Data is scanned and LazyFrame object is created. Data is only loaded to memory once `collect` method is called.
+A nice feature of Polars is streaming functionality. It enables to process data in batches, without 
+reading it all to memory and enables to process datasets bigger than user's machine memory (see 
+`with_streaming(true)` method below).
+```rust
+let mut lf = LazyCsvReader::new("data/wine.csv")
+    .with_has_header(true)
+    .finish()?;
+
+let mut lf = LazyCsvReader::new("data/netflix_titles.csv").finish()?;
+```
+
 ### 1. Netflix dataset
 - Show top15 directors who filmed the most movied/shows
 ```rust
