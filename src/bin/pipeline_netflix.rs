@@ -13,7 +13,7 @@ fn main() -> PolarsResult<()> {
     // 3. Group by
     let produced_by_director = lf
         .clone()
-        .drop_nulls(Some(vec![col("director")]))
+        .filter(col("director").is_not_null())
         .group_by([col("director")])
         .agg([col("show_id").n_unique().alias("num_movies")])
         .sort(
